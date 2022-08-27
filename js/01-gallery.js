@@ -22,6 +22,7 @@ galleryEl.addEventListener('click', onImageClick)
 
 
 function onImageClick(event) {
+    event.preventDefault();
     if (event.target.nodeName !== "IMG") {
         return;
     }
@@ -30,11 +31,15 @@ function onImageClick(event) {
 `)
 
     instance.show();
-    window.addEventListener("keydown", (event) => {
+    galleryEl.addEventListener("keydown", onEskKeyPress)
+
+    function onEskKeyPress(event) {
         if (event.code === "Escape") {
             instance.close();
+            galleryEl.removeEventListener(event, onEskKeyPress);
         }
 
-    })
+    }
 
 }
+console.log(galleryItems);
